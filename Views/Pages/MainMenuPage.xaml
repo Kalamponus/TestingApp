@@ -8,18 +8,18 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MainMenuPage">
 
-    <DockPanel Background="White">
-        <Grid>
+        <Grid Background="White">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Button x:Name="CreateTestBtn" DockPanel.Dock="Left" Width="152" Height="50" Grid.Column="0" Grid.Row="0">Создать тест</Button>
-            <Button x:Name="StartTestBtn" DockPanel.Dock="Left" Width="152" Height="50" Grid.Column="1" Grid.Row="1">Пройти тест</Button>
-        </Grid>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="CreateTestBtn" Width="150" Height="50" Grid.Column="0" Grid.Row="0" Content="Создать тест" Click="CreateTestBtn_Click"/>
+        <Button x:Name="StartTestBtn" Width="150" Height="50" Grid.Column="1" Grid.Row="0" Content="Пройти тест" Click="StartTestBtn_Click"/>
+        <Button x:Name="ExitBtn" Width="150" Height="30"  Grid.Row="1" Grid.ColumnSpan="2" Content="Выход" Click="ExitBtn_Click"/>
+    </Grid>
         
-    </DockPanel>
 </Page>
