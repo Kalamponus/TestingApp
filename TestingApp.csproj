@@ -8,11 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Infrastructure\Commands\" />
-    <Folder Include="Models\" />
     <Folder Include="Data\" />
-    <Folder Include="ViewModels\Base\" />
-    <Folder Include="ViewModels\Frames\" />
   </ItemGroup>
 
 </Project>

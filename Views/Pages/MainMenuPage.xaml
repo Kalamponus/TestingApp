@@ -1,14 +1,13 @@
-﻿<Page x:Class="TestingApp.Views.Pages.MainMenuPage"
+﻿<UserControl x:Class="TestingApp.Views.Pages.MainMenuPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TestingApp.Views.Pages"
+      xmlns:viewmodels="clr-namespace:TestingApp.ViewModels"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="MainMenuPage">
-
-        <Grid Background="White">
+      d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="White">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -17,9 +16,9 @@
                 <RowDefinition Height="5*"/>
                 <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="CreateTestBtn" Width="150" Height="50" Grid.Column="0" Grid.Row="0" Content="Создать тест" Click="CreateTestBtn_Click"/>
-        <Button x:Name="StartTestBtn" Width="150" Height="50" Grid.Column="1" Grid.Row="0" Content="Пройти тест" Click="StartTestBtn_Click"/>
-        <Button x:Name="ExitBtn" Width="150" Height="30"  Grid.Row="1" Grid.ColumnSpan="2" Content="Выход" Click="ExitBtn_Click"/>
+        <Button x:Name="CreateTestBtn" Width="150" Height="50" Grid.Column="0" Grid.Row="0" Content="Создать тест"/>
+        <Button x:Name="StartTestBtn" Width="150" Height="50" Grid.Column="1" Grid.Row="0" Content="Пройти тест" Command="{Binding Path=NavigateTestingPageCommand}"/>
+        <Button x:Name="ExitBtn" Width="150" Height="30"  Grid.Row="1" Grid.ColumnSpan="2" Content="Выход"/>
     </Grid>
         
-</Page>
+</UserControl>

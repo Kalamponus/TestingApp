@@ -13,12 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TestingApp.Views.Pages.TestWalktrough
+namespace TestingApp.Views.Pages
 {
     /// <summary>
     /// Логика взаимодействия для TestingPage.xaml
     /// </summary>
-    public partial class TestingPage : Page
+    public partial class TestingPage : UserControl
     {
         public TestingPage()
         {

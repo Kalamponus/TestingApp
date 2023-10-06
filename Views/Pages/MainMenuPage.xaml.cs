@@ -18,7 +18,7 @@ namespace TestingApp.Views.Pages
     /// <summary>
     /// Логика взаимодействия для MainMenuPage.xaml
     /// </summary>
-    public partial class MainMenuPage : Page
+    public partial class MainMenuPage : UserControl
     {
         public MainMenuPage()
         {
