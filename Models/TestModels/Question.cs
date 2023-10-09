@@ -1,18 +1,19 @@
 ﻿
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 
 namespace TestingApp.Models.TestModels
 {
-    internal abstract class Question
+    internal class Question
     {
 
-        public string? Number { get; set; }
+        public int? QuestionNumber { get; set; }
         public string? QuestionText { get; set; }
-        public string? QuestionType { get; set; }
-        public string? RightAnswer { get; set; }
-
-        public List<Answer>? Answers { get; set; }
+        public string? QuestionImage { get; set; }
+        public QuestionType QuestionType { get; set; }
+        public List<string>? CorrectAnswers { get; set; }
+        public ObservableCollection<Answer>? Answers { get; set; }
 
     }
 }

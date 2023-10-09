@@ -19,6 +19,12 @@
             <DataTemplate DataType="{x:Type viewmodels:TestingPageViewModel}">
                 <viewpages:TestingPage/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:TestResultViewModel}">
+                <viewpages:TestResult/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:TestRedactorPageViewModel}">
+                <viewpages:TestRedactorPage/>
+            </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>
 </Window>

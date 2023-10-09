@@ -16,7 +16,7 @@
                 <RowDefinition Height="5*"/>
                 <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="CreateTestBtn" Width="150" Height="50" Grid.Column="0" Grid.Row="0" Content="Создать тест"/>
+        <Button x:Name="CreateTestBtn" Width="150" Height="50" Grid.Column="0" Grid.Row="0" Content="Создать тест" Command="{Binding NavigateTestRedactorCommand}"/>
         <Button x:Name="StartTestBtn" Width="150" Height="50" Grid.Column="1" Grid.Row="0" Content="Пройти тест" Command="{Binding Path=NavigateTestingPageCommand}"/>
         <Button x:Name="ExitBtn" Width="150" Height="30"  Grid.Row="1" Grid.ColumnSpan="2" Content="Выход"/>
     </Grid>

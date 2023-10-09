@@ -9,6 +9,10 @@ using TestingApp.ViewModels.Base;
 
 namespace TestingApp.Infrastructure.Commands
 {
+    /// <summary>
+    /// Комманда для переключения между viewmodel
+    /// </summary>
+    /// <typeparam name="TViewModel">Viewmodel, на которую нужно переключиться</typeparam>
     internal class NavigateCommand<TViewModel> : Command where TViewModel : ViewModel
     {
 

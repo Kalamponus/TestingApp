@@ -2,10 +2,9 @@
 
 namespace TestingApp.Models.TestModels
 {
-    internal abstract class Answer
+    internal class Answer
     {
-
-        public string? UserAnswer { get; set; }
-
+        public string? AnswerText { get; set; }
+        public bool IsSelected { get; set; }
     }
 }

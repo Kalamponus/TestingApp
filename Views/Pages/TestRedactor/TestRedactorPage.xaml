@@ -4,9 +4,99 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TestingApp.Views.Pages"
+             xmlns:selectortemplates="clr-namespace:TestingApp.Infrastructure.ItemSelectorTemplates"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800">
 
+    <UserControl.Resources>
+        <DataTemplate x:Key="TextQuestionTemplate">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Content="Номер вопроса:"/>
+                    <TextBox/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Content="Текст вопроса:"/>
+                    <TextBox/>
+                </StackPanel>
+
+                <Image x:Name="QuestionImage" Visibility="Hidden"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Content="Картинка к вопросу (если требуется)"/>
+                    <TextBox Width="300"/>
+                    <Button Width="150" Height="30" Content="Открыть файл" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Content="Ответы на вопрос (через запятую):"/>
+                    <TextBox/>
+                </StackPanel>
+
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="MultiChoiceTemplate">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Content="Номер вопроса:"/>
+                    <TextBox/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Content="Текст вопроса:"/>
+                    <TextBox/>
+                </StackPanel>
+                <Label Content="Ответы на вопросы (мин. кол-во: 2, отметьте правильные варианты)"/>
+
+                <ListBox ItemsSource="{Binding Answers}" Height="100">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Height="100" Width="100">
+                                <TextBox Width="50" Height="100"/>
+                            </StackPanel>
+
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <Button Content="Добавить ответ" Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}, Path=DataContext.AddAnswerCommand }" CommandParameter="{Binding}"/>
+                <Button Content="Убрать ответ"/>
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ImageQuestionTemplate">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Content="Номер вопроса:"/>
+                    <TextBox/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Content="Текст вопроса:"/>
+                    <TextBox/>
+                </StackPanel>
+                <Label Content="Ответы на вопросы (мин. кол-во: 2, отметьте правильные варианты)"/>
+
+                <ListBox SelectionMode="Multiple">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Button Content="Убрать ответ"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <Button Content="Добавить ответ"/>
+            </StackPanel>
+        </DataTemplate>
+        <selectortemplates:TestTemplateSelector x:Key="TestTemplateSelector"/>
+    </UserControl.Resources>
+    
     <ScrollViewer>
     <Grid Background="White">
         <Grid.RowDefinitions>
@@ -22,119 +112,20 @@
         <StackPanel Orientation="Vertical" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Border BorderBrush="Gray" BorderThickness="1">
 
-                <ListBox x:Name="TestsList" MinWidth="500" MinHeight="200">
-                <ListBox.Resources>
-                    
-                    <DataTemplate x:Key="TextQuestion">
-                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Label Content="Номер вопроса:"/>
-                                <TextBox x:Name="QuestionNumber"/>
-                            </StackPanel>
-
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Label Content="Текст вопроса:"/>
-                                <TextBox x:Name="QuestionText"/>
-                            </StackPanel>
-
-                            <Image x:Name="QuestionImage" Visibility="Hidden"/>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Label Content="Картинка к вопросу (если требуется)"/>
-                                <TextBox x:Name="ImageFileName" Width="300"/>
-                                <Button x:Name="ImageFileUpload" Width="150" Height="30" Content="Открыть файл" />
-                            </StackPanel>
-                                                                                 
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Label Content="Ответы на вопрос (через запятую):"/>
-                                <TextBox x:Name="QuestionAnswers"/>
-                            </StackPanel>
-                            
-                        </StackPanel>
-                    </DataTemplate>
-                    
-                    <DataTemplate x:Key="ListQuestion">
-                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            
-                           <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Label Content="Номер вопроса:"/>
-                                <TextBox x:Name="QuestionNumber"/>
-                           </StackPanel>
-                            
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Label Content="Текст вопроса:"/>
-                                <TextBox x:Name="QuestionText"/>
-                            </StackPanel>
-                            <Label Content="Ответы на вопросы (мин. кол-во: 2, отметьте правильные варианты)"/>
-
-                            <ListBox>
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            
-                                            <Image x:Name="QuestionImage" Visibility="Hidden"/>
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <Label Content="Картинка к вопросу (если требуется)"/>
-                                                <TextBox x:Name="ImageFileName" Width="300"/>
-                                                <Button x:Name="ImageFileUpload" Width="150" Height="30" Content="Открыть файл" />
-                                            </StackPanel>
-                                            <Button x:Name="RemoveImageAnswer" Content="Убрать ответ"/>
-                                        </StackPanel>
-                                        
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-
-                            <Button x:Name="AddImageAnswer" Content="Добавить ответ"/>
-                            <Button x:Name="RImageAnswer" Content="Добавить ответ"/>
-                        </StackPanel>
-                    </DataTemplate>
-
-                    <DataTemplate x:Key="ImageQuestion">
-                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Label Content="Номер вопроса:"/>
-                                <TextBox x:Name="QuestionNumber"/>
-                            </StackPanel>
-
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Label Content="Текст вопроса:"/>
-                                <TextBox x:Name="QuestionText"/>
-                            </StackPanel>
-                            <Label Content="Ответы на вопросы (мин. кол-во: 2, отметьте правильные варианты)"/>
-                                
-                                <ListBox>
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <RadioButton>
-                                                <TextBox/>
-                                            </RadioButton>
-                                            <Button x:Name="RemoveRadioAnswer" Content="Убрать ответ"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
-
-                            <Button x:Name="AddRadioAnswer" Content="Добавить ответ"/>
-                        </StackPanel>
-                    </DataTemplate>
-
-                </ListBox.Resources>
-            </ListBox>
+                    <ListBox x:Name="TestsList" MinWidth="500" MinHeight="200" ItemsSource="{Binding CurrentTest.Questions}" ItemTemplateSelector="{StaticResource TestTemplateSelector}">
+                    </ListBox>
             </Border>
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 10 0 0">
-                <Button x:Name="AddTextQuestionBtn" Content="Добавить вопрос с полем для ответа" Margin="0 0 0 10"/>
-                <Button x:Name="AddImageQuestionBtn" Content="Добавить вопрос с выбором картинки" Margin="0 0 0 10"/>
-                <Button x:Name="AddRadioQuestionBtn" Content="Добавить вопрос с вариантами ответа" Margin="0 0 0 10"/>
+                <Button Content="Добавить вопрос с полем для ответа" Margin="0 0 0 10" Command="{Binding AddTextQuestion}"/>
+                <Button Content="Добавить вопрос с выбором картинки" Margin="0 0 0 10" Command="{Binding AddImageQuestion}"/>
+                <Button Content="Добавить вопрос с вариантами ответа" Margin="0 0 0 10" Command="{Binding AddMultiChoiseQuestion}"/>
             </StackPanel>
 
         </StackPanel>
 
         <StackPanel Orientation="Vertical" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button x:Name="SaveBtn" Height="30" Width="150" Content="Сохранить" Margin="0 0 0 10"/>
-            <Button x:Name="GoBackBtn" Height="30" Width="150" Content="Назад"/>
+            <Button Height="30" Width="150" Content="Сохранить" Margin="0 0 0 10"/>
+            <Button Height="30" Width="150" Content="Назад"/>
         </StackPanel>
     </Grid>
      </ScrollViewer>

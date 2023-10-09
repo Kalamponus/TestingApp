@@ -5,9 +5,86 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TestingApp.Views.Pages"
       xmlns:viewmodels="clr-namespace:TestingApp.ViewModels"
+      xmlns:selectortemplates="clr-namespace:TestingApp.Infrastructure.ItemSelectorTemplates"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <DataTemplate x:Key="TextQuestionTemplate">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding QuestionNumber}"/> <TextBlock Text="{Binding QuestionText}"/>
+                </StackPanel>
+                <Image x:Name="QuestionImage" Visibility="Hidden"/>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Label Content="Ответы на вопрос (если их несколько, то нужно разделять их запятыми):"/>
+                    <TextBox x:Name="QuestionAnswers" Width="300" Text="{Binding Answers[0].AnswerText, Mode=TwoWay}"/>
+                </StackPanel>
+
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="ImageQuestionTemplate">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding QuestionNumber}"/>
+                    <TextBlock Text="{Binding QuestionText}"/>
+                </StackPanel>
+                <Image x:Name="QuestionImage" Visibility="Hidden"/>
+
+                <ListBox ItemsSource="{Binding Answers}" SelectionMode="Multiple">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding AnswerText}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="MultiChoiceTemplate">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="{Binding QuestionNumber}"/> <TextBlock Text="{Binding QuestionText}"/>
+            </StackPanel>
+            <Image x:Name="QuestionImage" Visibility="Hidden"/>
+                <ListBox ItemsSource="{Binding Answers}" SelectionMode="Multiple">
+                    <ListBox.ItemContainerStyle>
+                        <Style
+                            TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding AnswerText}"/>
+                        </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+          
+            </StackPanel>
+        </DataTemplate>
+
+<selectortemplates:TestTemplateSelector x:Key="TestTemplateSelector"/>
+    </UserControl.Resources>
     <Grid Background="White">
-        
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+
+        <ItemsControl x:Name="QuestionList" ItemsSource="{Binding Path=CurrentTest.Questions}" ItemTemplateSelector="{StaticResource TestTemplateSelector}" Grid.Row="0" HorizontalContentAlignment="Stretch">
+            
+        </ItemsControl>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2">
+            <Button Width="150" Height="25" Content="Завершить тест" Command="{Binding FinishTest}"/>
+            <Button Width="150" Height="25" Content="Выход"/>
+        </StackPanel>
     </Grid>
+    
 </UserControl>
