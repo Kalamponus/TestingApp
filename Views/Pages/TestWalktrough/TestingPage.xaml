@@ -12,12 +12,12 @@
         <DataTemplate x:Key="TextQuestionTemplate">
             <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <TextBlock Text="{Binding QuestionNumber}"/> <TextBlock Text="{Binding QuestionText}"/>
+                    <TextBlock Text="{Binding QuestionNumber}" Width="20"/> <TextBlock Text="{Binding QuestionText}" Width="100"/>
                 </StackPanel>
                 <Image x:Name="QuestionImage" Visibility="Hidden"/>
 
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <Label Content="Ответы на вопрос (если их несколько, то нужно разделять их запятыми):"/>
+                    <Label Content="Ответ на вопрос:"/>
                     <TextBox x:Name="QuestionAnswers" Width="300" Text="{Binding Answers[0].AnswerText, Mode=TwoWay}"/>
                 </StackPanel>
 
@@ -26,8 +26,8 @@
         <DataTemplate x:Key="ImageQuestionTemplate">
             <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <TextBlock Text="{Binding QuestionNumber}"/>
-                    <TextBlock Text="{Binding QuestionText}"/>
+                    <TextBlock Text="{Binding QuestionNumber}" Width="20"/>
+                    <TextBlock Text="{Binding QuestionText}" Width="100"/>
                 </StackPanel>
                 <Image x:Name="QuestionImage" Visibility="Hidden"/>
 
@@ -49,7 +49,7 @@
         <DataTemplate x:Key="MultiChoiceTemplate">
             <StackPanel Orientation="Vertical" VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                <TextBlock Text="{Binding QuestionNumber}"/> <TextBlock Text="{Binding QuestionText}"/>
+                    <TextBlock Text="{Binding QuestionNumber}" Width="20"/> <TextBlock Text="{Binding QuestionText}" Width="100"/>
             </StackPanel>
             <Image x:Name="QuestionImage" Visibility="Hidden"/>
                 <ListBox ItemsSource="{Binding Answers}" SelectionMode="Multiple">

@@ -25,6 +25,9 @@
             <DataTemplate DataType="{x:Type viewmodels:TestRedactorPageViewModel}">
                 <viewpages:TestRedactorPage/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:TestRedactorMenuViewModel}">
+                <viewpages:TestRedactorMenu/>
+            </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>
 </Window>

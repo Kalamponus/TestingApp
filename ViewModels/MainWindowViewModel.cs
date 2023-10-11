@@ -3,6 +3,7 @@ using TestingApp.ViewModels.Base;
 using System;
 using TestingApp.Views.Pages;
 using TestingApp.Infrastructure.Services;
+using System.IO;
 
 namespace TestingApp.ViewModels
 {
@@ -15,6 +16,8 @@ namespace TestingApp.ViewModels
 
         public MainWindowViewModel()
         {
+            if (!Directory.Exists("Tests")) Directory.CreateDirectory("Tests");
+            if (!Directory.Exists("Images")) Directory.CreateDirectory("Images");
             navigationStore.CurrentViewModel = new MainMenuPageViewModel(navigationStore);
             navigationStore.CurrentViewModelChanged += () => OnCurrentViewChanged();
             

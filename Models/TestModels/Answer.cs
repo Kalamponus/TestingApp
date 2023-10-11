@@ -1,10 +1,31 @@
 ﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace TestingApp.Models.TestModels
 {
-    internal class Answer
+    internal class Answer : INotifyPropertyChanged
     {
-        public string? AnswerText { get; set; }
+        private string? answerText;
+
+        public string? AnswerText 
+        {
+            get
+            {
+                return answerText;
+            }
+            set
+            {
+                answerText = value;
+                OnPropertyChanged("AnswerText");
+            }
+        }
         public bool IsSelected { get; set; }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
     }
 }

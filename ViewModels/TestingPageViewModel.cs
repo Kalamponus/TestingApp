@@ -5,8 +5,6 @@ using TestingApp.Infrastructure.Services;
 using TestingApp.ViewModels.Base;
 using TestingApp.Models.TestModels;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Diagnostics.Eventing.Reader;
 using System.Collections.ObjectModel;
 
 namespace TestingApp.ViewModels
@@ -88,7 +86,6 @@ namespace TestingApp.ViewModels
             question3.QuestionText = "Test3";
             question3.QuestionType = QuestionType.ImageQuestion;
             question3.QuestionNumber = 3;
-            //question3.Answers = new List<Answer>() { new Answer() { Id = 1, AnswerText = new Uri("Data/Images/kolbasa.jpg") }, new Answer() { Id = 2, AnswerText = System.AppDomain.CurrentDomain + "Data/Images/mem.jpg" } };
 
             question4.QuestionText = "Test4";
             question4.QuestionType = QuestionType.MultiChoiseQuestion;

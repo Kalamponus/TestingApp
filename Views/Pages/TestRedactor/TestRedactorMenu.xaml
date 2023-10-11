@@ -15,11 +15,11 @@
         </Grid.RowDefinitions>
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Text="Редактор тестов"></TextBlock>
         <StackPanel Orientation="Vertical" Grid.Row="1" VerticalAlignment="Center" >
-            <Button x:Name="CreateNewTestBtn" Width="150" Height="30">Создать новый тест</Button>
+            <Button Width="150" Height="30" Content="Создать новый тест" Command="{Binding NavigateTestRedactorEmptyCommand}"/>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Редактировать существующий тест:" Margin="0 20 0 10"></TextBlock>
-            <ComboBox x:Name="TestList" Width="300" Margin="0 0 0 10"></ComboBox>
-            <Button x:Name="RedactTestBtn" Width="150" Height="30" Visibility="Hidden">Редактировать тест</Button>
+            <ComboBox Width="300" Margin="0 0 0 10" ItemsSource="{Binding Files}" SelectedItem="{Binding SelectedTest, Mode=TwoWay}"/>
+            <Button Width="150" Height="30" Content="Редактировать тест" Command="{Binding RedactTest}"/>
         </StackPanel>
-        <Button x:Name="GoBackBtn" Width="150" Height="30" Grid.Row="2">Назад</Button>
+        <Button Width="150" Height="30" Grid.Row="2" Content="Назад" Command="{Binding NavigateRedactorMenuCommand}"/>
     </Grid>
 </UserControl>

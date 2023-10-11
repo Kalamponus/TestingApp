@@ -14,12 +14,12 @@ namespace TestingApp.ViewModels
     {
 
         public ICommand NavigateTestingPageCommand { get; }
-        public ICommand NavigateTestRedactorCommand { get; }
+        public ICommand NavigateTestRedactorMenuCommand { get; }
 
         public MainMenuPageViewModel(NavigationStore navigationStore)
         {
             NavigateTestingPageCommand = new NavigateCommand<TestingPageViewModel>(navigationStore, () => new TestingPageViewModel(navigationStore));
-            NavigateTestRedactorCommand = new NavigateCommand<TestRedactorPageViewModel>(navigationStore, () => new TestRedactorPageViewModel(navigationStore));
+            NavigateTestRedactorMenuCommand = new NavigateCommand<TestRedactorMenuViewModel>(navigationStore, () => new TestRedactorMenuViewModel(navigationStore));
         }
 
         
