@@ -17,8 +17,8 @@
                 <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Button Width="150" Height="50" Grid.Column="0" Grid.Row="0" Content="Создать тест" Command="{Binding NavigateTestRedactorMenuCommand}"/>
-        <Button Width="150" Height="50" Grid.Column="1" Grid.Row="0" Content="Пройти тест" Command="{Binding NavigateTestingPageCommand}"/>
-        <Button Width="150" Height="30"  Grid.Row="1" Grid.ColumnSpan="2" Content="Выход"/>
+        <Button Width="150" Height="50" Grid.Column="1" Grid.Row="0" Content="Пройти тест" Command="{Binding NavigateTestMenuCommand}"/>
+        <Button Width="150" Height="30"  Grid.Row="1" Grid.ColumnSpan="2" Content="Выход" Command="{Binding CloseApplicationCommand}"/>
     </Grid>
         
 </UserControl>

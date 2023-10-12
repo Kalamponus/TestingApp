@@ -3,30 +3,47 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Printing;
 using System.Runtime.CompilerServices;
 using System.Windows.Media.Imaging;
 
 namespace TestingApp.Models.TestModels
 {
+    /// <summary>
+    /// Модель вопросов в тесте
+    /// </summary>
     internal class Question : INotifyPropertyChanged
     {
 
         private string? questionImage;
-        public BitmapImage BitmapImage { 
+        private int questionNumber;
+
+        public string QuestionNumberCheck
+        {
             get
             {
-                if (questionImage == null)
+                return questionNumber.ToString();
+            }
+            set
+            {
+                int number;
+                if (Int32.TryParse(value.Trim(), out number))
                 {
-                    return null;
+                    questionNumber = number;
                 }
-                Uri uri = new Uri(questionImage as string, UriKind.Relative);
-                BitmapImage image = new BitmapImage(uri);
-                return image;
             }
-            }
+        }
 
-        public int QuestionNumber { get; set; }
+        public int QuestionNumber 
+        {
+            get
+            {
+                return questionNumber;
+            }
+            set
+            {
+                questionNumber = value;
+            }
+        }
         public string? QuestionText { get; set; }
         public string? QuestionImage 
         {

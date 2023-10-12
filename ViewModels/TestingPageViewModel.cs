@@ -6,6 +6,7 @@ using TestingApp.ViewModels.Base;
 using TestingApp.Models.TestModels;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace TestingApp.ViewModels
 {
@@ -17,11 +18,6 @@ namespace TestingApp.ViewModels
         public double FinalResult { get; set; }
         public int MaxResult { get; set; }
         #endregion
-
-        Question question1 = new Question();
-        Question question2 = new Question();
-        Question question3 = new Question();
-        Question question4 = new Question();
 
         #region Комманды       
         public ICommand NavigateMainMenuPageCommand { get; }  
@@ -64,37 +60,14 @@ namespace TestingApp.ViewModels
         }
         #endregion
 
-        public TestingPageViewModel(NavigationStore navigationStore)
+        public TestingPageViewModel(NavigationStore navigationStore, Test test)
         {
 
-            CurrentTest = new Test();
-
-            #region Данные для захардкоженного теста
-
-            question1.QuestionText = "Test1 fghddfghfhdgdfgh \n fghfghdfghhdfgdfghfdgh \n  fdghhdfgghdfhdgf\n fdhghdgfghfdhdfgfghdfghfghfhgfhgdfghdfhdgdfhfdfghfdghfg";
-            question1.QuestionType = QuestionType.TextQuestion;
-            question1.QuestionNumber = 1;
-            question1.Answers = new ObservableCollection<Answer>() { new Answer()};
-            question1.CorrectAnswers = new List<string>() { "answ1" };
-
-            question2.QuestionText = "Test2";
-            question2.QuestionType = QuestionType.TextQuestion;
-            question2.QuestionNumber = 2;
-            question2.Answers = new ObservableCollection<Answer>() { new Answer() };
-            question2.CorrectAnswers = new List<string> (){ "answ1", "answ2" };
-
-            question3.QuestionText = "Test3";
-            question3.QuestionType = QuestionType.ImageQuestion;
-            question3.QuestionNumber = 3;
-
-            question4.QuestionText = "Test4";
-            question4.QuestionType = QuestionType.MultiChoiseQuestion;
-            question4.QuestionNumber = 4;
-            question4.Answers = new ObservableCollection<Answer>() { new Answer() { AnswerText = "Hey3" }, new Answer() { AnswerText = "Hey4" }, new Answer() { AnswerText = "Hey6" }, new Answer() { AnswerText = "Hey7" }, new Answer() { AnswerText = "Hey8" } };
-            question4.CorrectAnswers = new List<string>() { "Hey3", "Hey4", "Hey7" };
-
-            #endregion
-            CurrentTest.Questions = new ObservableCollection<Question>() { question1, question2, question4 };
+            CurrentTest = test;
+            foreach (Question question in CurrentTest.Questions.Where(x => x.QuestionType == QuestionType.TextQuestion).ToList())
+            {
+                question.Answers = new ObservableCollection<Answer>() { new Answer() };
+            }
             MaxResult = CurrentTest.Questions.Count;
 
             NavigateMainMenuPageCommand = new NavigateCommand<MainMenuPageViewModel>(navigationStore, () => new MainMenuPageViewModel(navigationStore));

@@ -16,8 +16,11 @@ namespace TestingApp.ViewModels
 
         public MainWindowViewModel()
         {
+            //Создаем папки для хранения тестов и картинок, если их нет
             if (!Directory.Exists("Tests")) Directory.CreateDirectory("Tests");
             if (!Directory.Exists("Images")) Directory.CreateDirectory("Images");
+
+            //Определение объекта для навигации
             navigationStore.CurrentViewModel = new MainMenuPageViewModel(navigationStore);
             navigationStore.CurrentViewModelChanged += () => OnCurrentViewChanged();
             

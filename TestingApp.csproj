@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <Folder Include="Infrastructure\CustomControls\" />
-    <Folder Include="Infrastructure\Services\Interfaces\" />
   </ItemGroup>
 
 </Project>

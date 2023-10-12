@@ -1,21 +1,25 @@
 ﻿using System.IO;
+using TestingApp.Infrastructure.Services.Interfaces;
 using TestingApp.Models.TestModels;
 
 namespace TestingApp.Infrastructure.Services
 {
-    internal class TestWriter
+    internal class TestWriter : ITestWriter
     {
-        private string filePath = "Tests";
-        private Test test;
 
-        public TestWriter(Test currentTest)
+        public TestWriter()
         {
-            test = currentTest;
+            
         }
 
-        public void Save()
+        /// <summary>
+        /// Запись теста в файл
+        /// </summary>
+        /// <param name="test">Записываемый тест</param>
+        /// <param name="filePath">Путь файла</param>
+        public void Save(Test test, string filePath)
         {           
-            var file = File.Create(filePath + "\\" + test.Name + ".bin");
+            var file = File.OpenWrite(filePath + "\\" + test.Name + ".bin");
             using (BinaryWriter bw = new BinaryWriter(file))
             {
                 bw.Write(test.Name);

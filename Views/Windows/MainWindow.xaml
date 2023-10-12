@@ -19,6 +19,9 @@
             <DataTemplate DataType="{x:Type viewmodels:TestingPageViewModel}">
                 <viewpages:TestingPage/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:TestMenuViewModel}">
+                <viewpages:TestMenu/>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:TestResultViewModel}">
                 <viewpages:TestResult/>
             </DataTemplate>

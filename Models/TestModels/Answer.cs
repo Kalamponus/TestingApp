@@ -3,6 +3,9 @@ using System.Runtime.CompilerServices;
 
 namespace TestingApp.Models.TestModels
 {
+    /// <summary>
+    /// Модель вариантов ответа в вопросе
+    /// </summary>
     internal class Answer : INotifyPropertyChanged
     {
         private string? answerText;

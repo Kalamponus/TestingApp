@@ -2,24 +2,27 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using TestingApp.Infrastructure.Services.Interfaces;
 using TestingApp.Models.TestModels;
 
 namespace TestingApp.Infrastructure.Services
 {
-    internal class TestReader
+    internal class TestReader : ITestReader
     {
-
-        private Test test;
 
         public TestReader()
         {
 
         }
 
-
+        /// <summary>
+        /// Считывает файл и возвращает тест на основе считанных данных
+        /// </summary>
+        /// <param name="path">Путь к файлу</param>
+        /// <returns>Тест на основе данных из файла</returns>
         public Test ReadTestFile(string path)
         {
-            test = new Test();
+            Test test = new Test();
             test.Questions = new System.Collections.ObjectModel.ObservableCollection<Question>();
             using (BinaryReader br = new BinaryReader(File.Open(path, FileMode.Open)))
             {
@@ -56,7 +59,6 @@ namespace TestingApp.Infrastructure.Services
 
             return test;
         }
-
        
     }
 }
