@@ -4,6 +4,31 @@
              xmlns:local="clr-namespace:TestingApp"
              StartupUri="Views/Windows/MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="Button" x:Key="SSmallBtn">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Margin" Value="0 0 0 10"/>
+        </Style>
+        <Style TargetType="Button" x:Key="SMediumBtn">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Margin" Value="0 10 0 10"/>
+        </Style>
+        <Style TargetType="Button" x:Key="SLongBtn">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Width" Value="300"/>
+            <Setter Property="Margin" Value="0 0 0 10"/>
+        </Style>
+        <Style TargetType="Border" x:Key="SImageBorder">
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="Margin" Value="0 10 0 10"/>
+        </Style>
+        <Style TargetType="StackPanel" x:Key="SQuestionStackPanel">
+            <Setter Property="Orientation" Value="Vertical"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0 10 0 0"/>
+        </Style>
     </Application.Resources>
 </Application>

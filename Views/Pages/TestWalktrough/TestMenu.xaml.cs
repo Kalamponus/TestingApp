@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace TestingApp.Views.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для TestRedactorPage.xaml
+    /// Логика взаимодействия для TestMenu.xaml
     /// </summary>
-    public partial class TestRedactorPage : Page
+    public partial class TestMenu : UserControl
     {
-        public TestRedactorPage()
+        public TestMenu()
         {
             InitializeComponent();
         }

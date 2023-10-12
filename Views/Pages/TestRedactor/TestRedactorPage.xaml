@@ -1,0 +1,172 @@
+﻿<UserControl x:Class="TestingApp.Views.Pages.TestRedactorPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TestingApp.Views.Pages"
+      xmlns:selectortemplates="clr-namespace:TestingApp.Infrastructure.ItemSelectorTemplates"
+      xmlns:services="clr-namespace:TestingApp.Infrastructure.Services"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <services:ImageConverter x:Key="ImageConverter" />
+        <DataTemplate x:Key="TextQuestionTemplate">
+            <StackPanel Style="{StaticResource ResourceKey=SQuestionStackPanel}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Content="Номер вопроса:"/>
+                    <TextBox Text="{Binding QuestionNumberCheck, Mode=TwoWay}" Width="30" TextAlignment="Center"/>
+                </StackPanel>
+
+                <Label Content="Текст вопроса:" Width="100"/>
+                <TextBox Text="{Binding QuestionText, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" Width="300" Height="100"/>
+
+                <StackPanel HorizontalAlignment="Center" Margin="0 10 0 0">
+                    <Label Content="Картинка к вопросу (если требуется)"/>
+                </StackPanel>
+                <Border Style="{StaticResource ResourceKey=SImageBorder}">
+                    <Image Source="{Binding QuestionImage, TargetNullValue={x:Null}, Converter={StaticResource ImageConverter}, UpdateSourceTrigger=PropertyChanged}" Height="300" Width="300"/>
+                </Border>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button Width="150" Height="30" Content="Открыть файл" Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}, Path=DataContext.UploadQuestionImage }" CommandParameter="{Binding}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Content="Ответ на вопрос:"/>
+                    <TextBox Text="{Binding CorrectAnswers[0], Mode=TwoWay}" Width="300" Height="100"/>
+                </StackPanel>
+                <Button Content="Удалить вопрос" Style="{StaticResource ResourceKey=SMediumBtn}" Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}, Path=DataContext.RemoveQuestion}" CommandParameter="{Binding}"/>
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="MultiChoiceTemplate">
+            <StackPanel Style="{StaticResource ResourceKey=SQuestionStackPanel}">
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Content="Номер вопроса:"/>
+                    <TextBox Text="{Binding QuestionNumberCheck, Mode=TwoWay}" Width="30" TextAlignment="Center"/>
+                </StackPanel>
+
+                <Label Content="Текст вопроса:" Width="100"/>
+                <TextBox Text="{Binding QuestionText, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" Width="300" Height="100"/>
+
+                <StackPanel HorizontalAlignment="Center" Margin="0 10 0 0">
+                    <Label Content="Картинка к вопросу (если требуется)"/>
+                </StackPanel>
+                <Border Style="{StaticResource ResourceKey=SImageBorder}">
+                    <Image Source="{Binding QuestionImage, TargetNullValue={x:Null}, Converter={StaticResource ImageConverter}, UpdateSourceTrigger=PropertyChanged}" Height="300" Width="300"/>
+                </Border>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button Width="150" Height="30" Content="Открыть файл" Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}, Path=DataContext.UploadQuestionImage }" CommandParameter="{Binding}"/>
+                </StackPanel>
+
+                <Label Content="Ответы на вопросы (мин. кол-во: 2, выделите правильные варианты)"/>
+
+                <ListBox ItemsSource="{Binding Answers}" Height="100" SelectionMode="Multiple">
+                    <ListBox.ItemContainerStyle>
+                        <Style
+                            TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBox Width="300" Text="{Binding AnswerText, Mode=TwoWay}"/>
+                            </StackPanel>
+
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <Button Content="Добавить ответ" Style="{StaticResource ResourceKey=SMediumBtn}" Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}, Path=DataContext.AddAnswerCommand }" CommandParameter="{Binding}"/>
+                <Button Content="Убрать выделенные ответы" Style="{StaticResource ResourceKey=SMediumBtn}" Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}, Path=DataContext.RemoveAnswers }" CommandParameter="{Binding}"/>
+                <Button Content="Удалить вопрос" Style="{StaticResource ResourceKey=SMediumBtn}"  Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}, Path=DataContext.RemoveQuestion}" CommandParameter="{Binding}"/>
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ImageQuestionTemplate">
+            <StackPanel Style="{StaticResource ResourceKey=SQuestionStackPanel}">
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Content="Номер вопроса:"/>
+                    <TextBox Text="{Binding QuestionNumberCheck, Mode=TwoWay}" Width="30" TextAlignment="Center"/>
+                </StackPanel>
+
+                    <Label Content="Текст вопроса:" Width="100"/>
+                    <TextBox Text="{Binding QuestionText, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" Width="300" Height="100"/>
+
+
+                <StackPanel HorizontalAlignment="Center" Margin="0 10 0 0">
+                    <Label Content="Картинка к вопросу (если требуется)"/>
+                </StackPanel>
+                <Border Style="{StaticResource ResourceKey=SImageBorder}">
+                    <Image Source="{Binding QuestionImage, TargetNullValue={x:Null}, Converter={StaticResource ImageConverter}, UpdateSourceTrigger=PropertyChanged}" Height="300" Width="300"/>
+                </Border>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button Width="150" Height="30" Content="Открыть файл" Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}, Path=DataContext.UploadQuestionImage }" CommandParameter="{Binding}"/>
+                </StackPanel>
+
+                <Label Content="Ответы на вопросы (мин. кол-во: 2, выделите правильные варианты)"/>
+
+                <ListBox SelectionMode="Multiple" ItemsSource="{Binding Answers}" Height="400">
+                    <ListBox.ItemContainerStyle>
+                        <Style
+                            TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Border BorderThickness="1" BorderBrush="Gray">
+                                    <Image Source="{Binding AnswerText, TargetNullValue={x:Null}, Converter={StaticResource ImageConverter}, UpdateSourceTrigger=PropertyChanged}" Height="200" Width="200"/>
+                                </Border>
+                                <Button Content="Открыть файл" Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}, Path=DataContext.UploadAnswerImage }" CommandParameter="{Binding}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Button Content="Добавить ответ" Style="{StaticResource ResourceKey=SMediumBtn}" Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}, Path=DataContext.AddAnswerCommand }" CommandParameter="{Binding}"/>
+                <Button Content="Убрать выделенные ответы" Style="{StaticResource ResourceKey=SMediumBtn}" Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}, Path=DataContext.RemoveAnswers }" CommandParameter="{Binding}"/>
+                <Button Content="Удалить вопрос" Style="{StaticResource ResourceKey=SMediumBtn}" Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}, Path=DataContext.RemoveQuestion}" CommandParameter="{Binding}"/>
+            </StackPanel>
+        </DataTemplate>
+        <selectortemplates:TestTemplateSelector x:Key="TestTemplateSelector"/>
+    </UserControl.Resources>
+    
+    <ScrollViewer>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label Content="Название теста:"/>
+            <TextBox x:Name="TestName" Text="{Binding CurrentTest.Name}" Width="300"/>
+        </StackPanel>
+        <Label Content="Обязательное поле, название не должно повторяться"/>
+        </StackPanel>
+            <StackPanel Orientation="Vertical" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Border BorderBrush="Gray" BorderThickness="1">
+                    <ItemsControl x:Name="TestsList" MinWidth="600" MinHeight="300" ItemsSource="{Binding CurrentTest.Questions}" ItemTemplateSelector="{StaticResource TestTemplateSelector}" HorizontalContentAlignment="Stretch"/>
+                </Border>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 10 0 0">
+                    <Button Content="Добавить вопрос с полем для ответа" Style="{StaticResource ResourceKey=SLongBtn}" Command="{Binding AddTextQuestion}"/>
+                    <Button Content="Добавить вопрос с выбором картинки" Style="{StaticResource ResourceKey=SLongBtn}" Command="{Binding AddImageQuestion}"/>
+                    <Button Content="Добавить вопрос с вариантами ответа" Style="{StaticResource ResourceKey=SLongBtn}" Command="{Binding AddMultiChoiseQuestion}"/>
+            </StackPanel>
+
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Перед сохранением, убедитесь, что все поля заполнены корректно" Margin="0 0 0 10"/>
+                <Button Style="{StaticResource ResourceKey=SSmallBtn}" Content="Сохранить" Command="{Binding SaveTest}"/>
+                <Button Style="{StaticResource ResourceKey=SSmallBtn}" Content="Назад" Command="{Binding NavigateRedactorMenuCommand}"/>
+        </StackPanel>
+    </Grid>
+     </ScrollViewer>
+</UserControl>
